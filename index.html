@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Revisão para a Prova 02 de Computação em Nuvem com exemplos, tabelas e questões comentadas.">
+  <title>Prova 02 · Computação em Nuvem</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f1f5f9;
+      --ink: #182b41;
+      --muted: #445973;
+      --navy: #10243c;
+      --blue: #1753a4;
+      --line: #d6e1ed;
+      --soft: #eaf3ff;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.65 system-ui, sans-serif; }
+    a { color: var(--blue); text-underline-offset: .2em; }
+    :focus-visible { outline: 3px solid #1766c8; outline-offset: 4px; }
+    .skip { position: absolute; top: .75rem; left: .75rem; padding: .5rem 1rem; background: var(--white); transform: translateY(-200%); }
+    .skip:focus { transform: none; z-index: 1; }
+    .wrap { width: min(73rem, calc(100% - 3rem)); margin-inline: auto; }
+
+    .hero { background: radial-gradient(ellipse at 85% 15%, #214c79, var(--navy) 65%); color: var(--white); }
+    .hero .wrap { padding-block: clamp(2.75rem, 7vw, 6.25rem); display: grid; grid-template-columns: 1.7fr 1fr; gap: 2rem 3rem; align-items: center; }
+    .tag { margin: 0 0 .9rem; color: #a8ddff; font-size: .875rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3 { line-height: 1.14; text-wrap: balance; }
+    h1 { margin: 0; font-size: clamp(2.65rem, 6.4vw, 5.4rem); letter-spacing: -.065em; }
+    h1 span { color: #a8ddff; }
+    .lead { margin: 1.15rem 0 1.6rem; max-width: 44ch; color: #e0ecfb; font-size: clamp(1rem, 2vw, 1.19rem); }
+    .action { display: inline-block; padding: .63rem 1rem; border-radius: .5rem; background: #b7e5ff; color: var(--navy); font-weight: 750; text-decoration: none; }
+    .action:hover { background: var(--white); }
+    .hero :focus-visible { outline-color: var(--white); }
+    .overview { margin: 0; padding: .9rem 1.25rem; border: 1px solid #6388ae; border-radius: 1rem; background: #112c49; }
+    .overview div { display: flex; align-items: center; gap: 1rem; padding: .35rem 0; }
+    .overview div + div { border-top: 1px solid #406286; }
+    .overview dt { order: 1; color: #e0ecfb; }
+    .overview dd { margin: 0; min-width: 1.2em; color: #a8ddff; font-size: 2rem; font-weight: 780; line-height: 1.45; }
+
+    .layout { display: grid; grid-template-columns: minmax(12rem, .95fr) minmax(0, 3.25fr); gap: 2rem; align-items: start; padding-block: 2.25rem 4rem; }
+    nav { position: sticky; top: 1.25rem; padding: 1rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--white); }
+    nav h2 { margin: .25rem .45rem .6rem; font-size: 1rem; }
+    nav ul { padding: 0; margin: 0; list-style: none; }
+    nav a { display: block; padding: .4rem .45rem; border-radius: .35rem; font-size: .9375rem; text-decoration: none; }
+    nav a:hover, nav a:focus-visible { background: var(--soft); }
+
+    main { min-width: 0; }
+    section { scroll-margin-top: 1.25rem; padding: clamp(1.15rem, 3vw, 2rem); border: 1px solid var(--line); border-radius: .9rem; background: var(--white); }
+    section + section { margin-top: 1.15rem; }
+    section:target { border-color: var(--blue); }
+    section > :last-child { margin-bottom: 0; }
+    h2 { margin: 0 0 .75rem; font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -.035em; }
+    h3 { margin: 1.2rem 0 .45rem; font-size: 1.12rem; }
+    p, ul, ol { margin: 0 0 .9rem; }
+    ul, ol { padding-left: 1.35rem; }
+    li + li { margin-top: .28rem; }
+    nav li + li { margin-top: 0; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: .75rem; margin: 1rem 0; }
+    .card { padding: .9rem; background: #f5f8fc; border: 1px solid var(--line); border-radius: .6rem; }
+    .card h3, .card p { margin-top: 0; }
+    .card p { margin-bottom: 0; }
+    .note { padding: .75rem .9rem; background: var(--soft); border-left: .25rem solid var(--blue); border-radius: 0 .45rem .45rem 0; }
+    .source { color: var(--muted); font-size: .875rem; }
+    .table-wrap { overflow-x: auto; margin: 1rem 0; border: 1px solid var(--line); border-radius: .6rem; }
+    table { width: 100%; min-width: 35rem; border-collapse: collapse; text-align: left; }
+    caption { padding: .5rem .65rem; text-align: left; font-weight: 730; }
+    th, td { padding: .58rem .65rem; border-top: 1px solid var(--line); vertical-align: top; }
+    thead th { background: var(--soft); }
+    tbody tr:nth-child(even) { background: #f5f8fc; }
+    details { margin: .65rem 0; border: 1px solid var(--line); border-radius: .5rem; }
+    summary { padding: .65rem .85rem; color: var(--blue); font-weight: 700; cursor: pointer; }
+    summary:hover { background: var(--soft); }
+    details p { margin: 0; padding: .1rem .85rem .75rem; }
+
+    @media (max-width: 51rem) {
+      .layout { grid-template-columns: 1fr; gap: 1rem; padding-top: 1rem; }
+      nav { position: static; }
+      nav ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .25rem; }
+      nav a { background: #f5f8fc; }
+    }
+
+    @media (max-width: 38rem) {
+      .wrap { width: calc(100% - 1.5rem); }
+      .hero .wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+      .overview { padding: .35rem .9rem; }
+      .overview dd { font-size: 1.6rem; }
+    }
+
+    @media print {
+      body, .hero, .overview, section { background: #fff; color: #000; }
+      .hero p, .hero span, .overview dt, .overview dd { color: #000; }
+      .hero .wrap, .layout { display: block; padding: 0; }
+      .overview { margin: .5rem 0; }
+      .wrap { width: 100%; }
+      nav, .skip, .action { display: none; }
+      section { border: 0; padding: .8rem 0; }
+      h2, h3 { break-after: avoid; }
+      .table-wrap { overflow: visible; }
+      table { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <p class="tag">Revisão para a Prova 02</p>
+        <h1>Computação<br><span>em Nuvem</span></h1>
+        <p class="lead">Entenda o que a nuvem oferece, quem cuida de cada camada e como comparar serviços de AWS, Azure e Google Cloud.</p>
+        <a class="action" href="#questoes">Praticar com questões</a>
+      </div>
+      <dl class="overview" aria-label="A definição de nuvem do NIST em números">
+        <div><dt>características essenciais</dt><dd>5</dd></div>
+        <div><dt>modelos de serviço</dt><dd>3</dd></div>
+        <div><dt>modelos de implantação</dt><dd>4</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <nav aria-labelledby="indice">
+      <h2 id="indice">Neste guia</h2>
+      <ul>
+        <li><a href="#nist">NIST</a></li>
+        <li><a href="#servicos">Modelos de serviço</a></li>
+        <li><a href="#responsabilidades">Responsabilidades</a></li>
+        <li><a href="#implantacao">Implantação</a></li>
+        <li><a href="#sla">SLAs</a></li>
+        <li><a href="#provedores">AWS, Azure e GCP</a></li>
+        <li><a href="#aps">APS03 e APS04</a></li>
+        <li><a href="#questoes">Questões comentadas</a></li>
+      </ul>
+    </nav>
+
+    <main id="conteudo">
+      <section id="nist">
+        <h2>NIST e as cinco características</h2>
+        <p>O NIST é o Instituto Nacional de Padrões e Tecnologia dos Estados Unidos. A publicação SP 800-145 define computação em nuvem como um modelo que dá acesso sob demanda, pela rede, a recursos compartilhados que podem ser alocados e liberados rapidamente.</p>
+        <ol>
+          <li><strong>Autoatendimento sob demanda.</strong> Você cria uma máquina virtual pelo painel ou por uma API, sem solicitar atendimento manual ao provedor.</li>
+          <li><strong>Amplo acesso pela rede.</strong> O serviço usa mecanismos de rede padronizados e pode ser acessado por diferentes tipos de dispositivo.</li>
+          <li><strong>Agrupamento de recursos.</strong> Um conjunto de servidores, redes e discos atende vários clientes. O provedor distribui a capacidade conforme a demanda.</li>
+          <li><strong>Elasticidade rápida.</strong> Uma loja ganha capacidade durante uma promoção e libera essa capacidade quando o tráfego cai.</li>
+          <li><strong>Serviço mensurado.</strong> O uso é medido e pode ser acompanhado, por exemplo, em horas de processamento ou gigabytes armazenados.</li>
+        </ol>
+        <p class="note"><strong>Escalabilidade</strong> é a capacidade de atender a uma carga maior. <strong>Elasticidade</strong> ajusta a capacidade para cima ou para baixo conforme a carga varia.</p>
+        <p class="source">Fonte oficial do <a href="https://csrc.nist.gov/pubs/sp/800/145/final">NIST SP 800-145</a>.</p>
+      </section>
+
+      <section id="servicos">
+        <h2>IaaS, PaaS e SaaS</h2>
+        <p>Classifique o serviço pelo que você recebe pronto e pelo que ainda precisa gerenciar.</p>
+        <div class="cards">
+          <article class="card">
+            <h3>IaaS · Infraestrutura</h3>
+            <p>Você recebe recursos como máquina virtual, rede e disco. No Amazon EC2, você gerencia o sistema operacional da VM e instala a aplicação.</p>
+          </article>
+          <article class="card">
+            <h3>PaaS · Plataforma</h3>
+            <p>Você publica seu código em um ambiente como o Azure App Service. O provedor opera a plataforma. Você gerencia a aplicação e suas configurações.</p>
+          </article>
+          <article class="card">
+            <h3>SaaS · Software</h3>
+            <p>Você acessa uma aplicação pronta, como o Google Workspace, e administra usuários e configurações disponíveis.</p>
+          </article>
+        </div>
+        <p class="note">Se você administra o sistema da VM, pense em IaaS. Se entrega seu código a uma plataforma gerenciada, pense em PaaS. Se só usa o aplicativo pronto, pense em SaaS.</p>
+      </section>
+
+      <section id="responsabilidades">
+        <h2>Matriz de responsabilidades</h2>
+        <p>O provedor protege a infraestrutura <strong>da nuvem</strong>. O cliente protege os dados, os acessos e os recursos que controla <strong>na nuvem</strong>. A divisão muda conforme o serviço.</p>
+        <div class="table-wrap" role="region" aria-label="Tabela de responsabilidades por modelo" tabindex="0">
+          <table>
+            <caption>Quem cuida de cada camada</caption>
+            <thead>
+              <tr><th scope="col">Camada</th><th scope="col">Local</th><th scope="col">IaaS</th><th scope="col">PaaS</th><th scope="col">SaaS</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Datacenter, hardware e rede física</th><td>Cliente</td><td>Provedor</td><td>Provedor</td><td>Provedor</td></tr>
+              <tr><th scope="row">Controles de rede</th><td>Cliente</td><td>Cliente</td><td>Compartilhado</td><td>Provedor</td></tr>
+              <tr><th scope="row">Sistema operacional</th><td>Cliente</td><td>Cliente na VM</td><td>Provedor</td><td>Provedor</td></tr>
+              <tr><th scope="row">Aplicação</th><td>Cliente</td><td>Cliente</td><td>Cliente no código, provedor na plataforma</td><td>Provedor no software, cliente nas configurações</td></tr>
+              <tr><th scope="row">Dados, usuários e permissões</th><td>Cliente</td><td>Cliente</td><td>Cliente</td><td>Cliente</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Exemplo.</strong> Em uma VM EC2, o cliente aplica as atualizações do sistema convidado e configura o grupo de segurança. Em um serviço de armazenamento gerenciado como o S3, o provedor opera a infraestrutura e o cliente define quem pode acessar os arquivos.</p>
+        <p class="source">Confira a divisão para o serviço usado. <a href="https://aws.amazon.com/compliance/shared-responsibility-model/">Modelo da AWS</a> · <a href="https://learn.microsoft.com/pt-br/azure/security/fundamentals/shared-responsibility">Matriz do Azure</a> · <a href="https://docs.cloud.google.com/architecture/framework/security/shared-responsibility-shared-fate?hl=pt-br">Modelo do Google Cloud</a>.</p>
+      </section>
+
+      <section id="implantacao">
+        <h2>Modelos de implantação</h2>
+        <p>Identifique quem pode usar a infraestrutura e como as nuvens se conectam.</p>
+        <dl>
+          <dt><strong>Pública</strong></dt>
+          <dd>Disponível ao público em geral. Uma empresa pode rodar uma aplicação interna nela e restringir o acesso a seus funcionários.</dd>
+          <dt><strong>Privada</strong></dt>
+          <dd>De uso exclusivo de uma organização. Pode ficar no datacenter da organização ou ser hospedada por terceiros.</dd>
+          <dt><strong>Comunitária</strong></dt>
+          <dd>De uso exclusivo de organizações com necessidades em comum. Por exemplo, hospitais que compartilham uma nuvem com requisitos de segurança comuns.</dd>
+          <dt><strong>Híbrida</strong></dt>
+          <dd>Integra duas ou mais nuvens distintas e permite mover dados ou aplicações entre elas. Por exemplo, uma nuvem privada usa capacidade da pública durante picos.</dd>
+        </dl>
+        <p class="note">Uma máquina virtual na AWS pode ser <strong>IaaS</strong> em uma nuvem <strong>pública</strong>. A primeira classificação descreve o serviço. A segunda descreve a implantação.</p>
+        <p><strong>Multicloud</strong> descreve o uso de mais de um provedor. Usar AWS e Azure em projetos independentes é um exemplo de multicloud. A definição de nuvem híbrida do NIST exige integração que permita a portabilidade entre as nuvens.</p>
+      </section>
+
+      <section id="sla">
+        <h2>SLA e disponibilidade</h2>
+        <p>Um <strong>SLA</strong> é um acordo de nível de serviço. Ele informa o compromisso, como a disponibilidade mensal, a forma de medir, as exclusões e as condições para solicitar créditos.</p>
+        <p class="note"><strong>Cálculo simplificado para a prova.</strong> Tempo de indisponibilidade = tempo total × (1 − disponibilidade em decimal). Em 30 dias, há 43.200 minutos. Para 99,9%, o cálculo é 43.200 × 0,001 = <strong>43 min e 12 s</strong>.</p>
+        <div class="table-wrap" role="region" aria-label="Tabela de disponibilidade em 30 dias" tabindex="0">
+          <table>
+            <caption>Indisponibilidade correspondente em 30 dias</caption>
+            <thead><tr><th scope="col">Disponibilidade</th><th scope="col">Tempo indisponível</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">99%</th><td>7 h e 12 min</td></tr>
+              <tr><th scope="row">99,9%</th><td>43 min e 12 s</td></tr>
+              <tr><th scope="row">99,99%</th><td>4 min e 19 s, aproximadamente</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>SLI.</strong> Indicador medido, como a porcentagem de requisições bem-sucedidas.</li>
+          <li><strong>SLO.</strong> Meta para o indicador, como alcançar pelo menos 99,95% de requisições bem-sucedidas no mês.</li>
+          <li><strong>SLA.</strong> Acordo com o cliente que define o compromisso e o que acontece se ele for descumprido.</li>
+        </ul>
+        <p>A disponibilidade que o usuário percebe depende da arquitetura inteira. Uma aplicação pode ficar indisponível por causa do banco de dados mesmo quando as máquinas virtuais continuam funcionando.</p>
+        <p class="source"><a href="https://aws.amazon.com/compute/sla/">Exemplo de SLA do Amazon EC2</a> · <a href="https://sre.google/sre-book/service-level-objectives/">SLI, SLO e SLA no livro de SRE do Google</a>.</p>
+      </section>
+
+      <section id="provedores">
+        <h2>Ecossistemas AWS, Azure e GCP</h2>
+        <p>AWS é a plataforma da Amazon, Azure é a da Microsoft e GCP é a do Google. Memorize primeiro a finalidade de cada serviço. As opções da mesma linha atendem a necessidades parecidas.</p>
+        <div class="table-wrap" role="region" aria-label="Tabela comparativa dos provedores" tabindex="0">
+          <table>
+            <caption>Serviços comuns por finalidade</caption>
+            <thead><tr><th scope="col">Finalidade</th><th scope="col">AWS</th><th scope="col">Azure</th><th scope="col">Google Cloud</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Máquina virtual</th><td>Amazon EC2</td><td>Azure Virtual Machines</td><td>Compute Engine</td></tr>
+              <tr><th scope="row">Armazenamento de objetos</th><td>Amazon S3</td><td>Azure Blob Storage</td><td>Cloud Storage</td></tr>
+              <tr><th scope="row">Banco relacional gerenciado</th><td>Amazon RDS</td><td>Azure SQL Database</td><td>Cloud SQL</td></tr>
+              <tr><th scope="row">Funções disparadas por eventos</th><td>AWS Lambda</td><td>Azure Functions</td><td>Cloud Run functions</td></tr>
+              <tr><th scope="row">Rede virtual</th><td>Amazon VPC</td><td>Azure Virtual Network</td><td>Virtual Private Cloud</td></tr>
+              <tr><th scope="row">Monitoramento</th><td>Amazon CloudWatch</td><td>Azure Monitor</td><td>Cloud Monitoring</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>Região e zona.</strong> Região é uma área geográfica. Zona é um local isolado dentro da região. Distribuir componentes entre zonas pode manter a aplicação disponível se uma delas falhar.</li>
+          <li><strong>Identidade e acesso.</strong> As permissões determinam quem pode fazer o quê em cada recurso. Pelo princípio do menor privilégio, uma aplicação que só lê arquivos recebe acesso de leitura.</li>
+          <li><strong>Custo.</strong> Processamento, armazenamento e transferência de dados podem ter cobranças diferentes. Confira o que cada serviço mede.</li>
+        </ul>
+        <p class="source"><a href="https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison?hl=pt-br">Comparativo oficial do Google Cloud</a> · <a href="https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions-availability-zones.html">Regiões e zonas na AWS</a>.</p>
+      </section>
+
+      <section id="aps">
+        <h2>Revisão das APS03 e APS04</h2>
+        <p>Use o enunciado e sua entrega de cada atividade para responder às perguntas. Se a atividade foi teórica, use o cenário apresentado pelo professor.</p>
+        <div class="cards">
+          <article class="card">
+            <h3>APS03</h3>
+            <p>Explique em uma frase qual era o problema. Identifique os recursos utilizados ou propostos. Para cada recurso, diga o que o serviço entrega e quem faz a configuração ou manutenção.</p>
+          </article>
+          <article class="card">
+            <h3>APS04</h3>
+            <p>Desenhe o fluxo entre usuário, aplicação e dados, se houver. Aponte como o acesso é controlado, o que pode ficar indisponível e como você verificaria se a solução funciona.</p>
+          </article>
+        </div>
+        <p class="note"><strong>Exemplo para treinar.</strong> Um site guarda imagens em armazenamento de objetos. A aplicação recebe apenas acesso de leitura, e a equipe testa se consegue carregar uma imagem sem conceder permissão de escrita.</p>
+      </section>
+
+      <section id="questoes">
+        <h2>Questões comentadas</h2>
+        <p>Tente responder em voz alta. Depois, abra a questão para conferir o raciocínio.</p>
+        <details>
+          <summary>Qual característica do NIST aparece quando uma loja aumenta e reduz a capacidade conforme o tráfego?</summary>
+          <p><strong>Elasticidade rápida.</strong> A capacidade aumenta durante o pico e pode ser liberada quando a demanda diminui.</p>
+        </details>
+        <details>
+          <summary>Uma equipe envia seu próprio código a uma plataforma que gerencia o ambiente de execução. Qual é o modelo?</summary>
+          <p><strong>PaaS.</strong> O provedor opera a plataforma e a equipe continua responsável pelo código e pelas configurações da aplicação.</p>
+        </details>
+        <details>
+          <summary>Quem aplica as atualizações do Linux instalado em uma VM EC2?</summary>
+          <p><strong>O cliente.</strong> Em IaaS, o provedor opera o hardware e a virtualização. O cliente administra o sistema operacional convidado.</p>
+        </details>
+        <details>
+          <summary>Uma empresa usa uma nuvem pública para rodar um sistema interno. A nuvem passa a ser privada?</summary>
+          <p><strong>Continua pública.</strong> O modelo de implantação depende de quem pode contratar e usar a infraestrutura. O acesso ao sistema pode ser restrito.</p>
+        </details>
+        <details>
+          <summary>Uma nuvem privada amplia sua capacidade para uma nuvem pública integrada durante picos. Qual é a implantação?</summary>
+          <p><strong>Híbrida.</strong> Os dois ambientes mantêm sua identidade e se integram para permitir o uso de recursos entre as nuvens.</p>
+        </details>
+        <details>
+          <summary>Em um mês de 30 dias, quanto tempo de indisponibilidade corresponde a 99,99%?</summary>
+          <p><strong>Cerca de 4 min e 19 s.</strong> Multiplique os 43.200 minutos do mês por 0,0001. O resultado é 4,32 minutos.</p>
+        </details>
+        <details>
+          <summary>Quais serviços de Azure e Google Cloud cumprem a mesma finalidade básica do Amazon S3?</summary>
+          <p><strong>Azure Blob Storage e Cloud Storage.</strong> Os três são serviços de armazenamento de objetos, úteis para arquivos como imagens e relatórios.</p>
+        </details>
+        <details>
+          <summary>Uma VM funciona, mas a aplicação está sem acesso ao banco. O serviço está disponível para o usuário?</summary>
+          <p><strong>Depende das funções que precisam do banco.</strong> Se o usuário não consegue concluir uma operação essencial, a VM em funcionamento por si só não garante a disponibilidade da aplicação.</p>
+        </details>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
